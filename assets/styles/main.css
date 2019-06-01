@@ -1,0 +1,55 @@
+.calculator {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 1em  auto;
+    width: 70vh;
+    height: 70vh;
+}
+
+.display {
+    font-size: 1.5em;
+    border: 2px solid black;
+    border-radius: 0.3em;
+    flex: 1;
+}
+
+.keypad__wrapper {
+    display: flex;
+    flex: 6;
+}
+
+.number__keys {
+    flex: 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.operator__keys {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+button {
+    font-size: 1.5em;
+    background-color: #F5F7F9;
+}
+
+.number {
+    color: #0B151D;
+}
+
+.operator {
+    color: #34658D;
+}
+
+#clear {
+    color: #BF3F3F;
+}
+
+#equals {
+    color: #FFFFFF;
+    font-weight: bold;
+    background-color: #32A84C ;
+}
