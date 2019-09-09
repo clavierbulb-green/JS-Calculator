@@ -1,4 +1,4 @@
-/*BASIC FUNCTIONS*/
+/* wrappers for fundamental mathematic operations */
 function add(x, y) {
     return x + y;
 }
@@ -15,9 +15,10 @@ function divide(x, y) {
     return x / y;
 }
 
-// takes an operator and 2 numbers and then calls one of the above functions on
-// the numbers.
+
+// returns the result of an operation defined by operator on numbers x and y
 function operate(operator, x, y) {
+    //TODO throw errors in error cases?
     switch (operator) {
         case "+":
             return add(x, y);
@@ -39,60 +40,107 @@ function operate(operator, x, y) {
 
 
 let display = document.querySelector('.display');
-let firstOperand = undefined;
-let secondOperand = undefined;
-let operator = undefined;
+let operators = [];
+let operands = [];
+let nextOperand = '';
+let answered = false;
 
 
 //add functionality to number keys
 let numKeys = document.querySelectorAll('.number');
 numKeys.forEach( listObj => {
     listObj.addEventListener('click', e => {
-        display.textContent += listObj.textContent;
+        if (answered) {
+            display.textContent = '';
+            operands = [];
+            nextOperand = '';
+            answered = false;
+        }
+        //clicking on a number key populates display with corresponding number
+        digitStr = listObj.textContent;
+        display.textContent += digitStr;
+        nextOperand += digitStr;
     })
 });
+
 
 //add functionality to clear key
 let clearKey = document.querySelector('#clear');
 clearKey.addEventListener('click', e => {
     display.textContent = '';
-    firstOperand = undefined;
-    secondOperand = undefined;
-    operator = undefined;
+    operators = [];
+    operands = [];
+    nextOperand = '';
 });
+
 
 //add functionality to operator keys
 let operatorKeys = document.querySelectorAll('.operator');
 operatorKeys.forEach( listObj => {
     listObj.addEventListener('click', e => {
-        if (display.textContent !== '') {
-            if (!operator) {
-                firstOperand = Number(display.textContent);
-                operator = listObj.textContent;
-                display.textContent = '';
+        if (display.textContent) {
+            if (nextOperand) {
+                operands.push(Number(nextOperand));
+                nextOperand = '';
             }
-            else {
-                secondOperand = Number(display.textContent);
-                firstOperand = 
-                operate(operator, firstOperand, secondOperand).toFixed(2);
-                operator = listObj.textContent;
-                secondOperator = undefined;
-                display.textContent = '';
+            operator = listObj.textContent;
+            operators.push(operator);
+            display.textContent += operator;
+            if (answered) {
+                answered = false;
             }
         }
     });
 });
 
+
 //add functionality to equals key
 let equalsKey = document.querySelector('#equals');
 equalsKey.addEventListener('click', e => {
-    if (operator && firstOperand) {
-        secondOperand = Number(display.textContent);
-        display.textContent = 
-        operate(operator, firstOperand, secondOperand).toFixed(2);
-        firstOperand = undefined;
-        secondOperand = undefined;
-        operator = undefined;
+    result = -9999;
+
+    if (nextOperand) {
+        operands.push(Number(nextOperand));
+        nextOperand = ''
+    }
+
+    if (operators.length && operands.length > 1) {
+
+        //multiplication and division first
+        for (let i = 0; i < operators.length; i++) {
+            operator = operators[i];
+            if (operator === '*' || operator === '/') {
+                result = operate(operator, operands[i], operands[i+1]);
+                operands[i] = null;
+                operands[i+1] = result;
+                operators[i] = null;
+            }
+        }
+
+        //then addition and subtraction
+        for (let i = 0; i < operators.length; i++) {
+            operator = operators[i];
+            if (operator) {
+                secondOperandIndex = i+1;
+                while (!operands[secondOperandIndex]) {
+                    secondOperandIndex += 1;
+                }
+                result = operate(operator, operands[i], operands[secondOperandIndex]);
+                operands[secondOperandIndex] = result;
+            }
+        }
+
+
+        if (Number.isInteger(result)) {
+            display.textContent = result;
+        }
+        else {
+            display.textContent = result.toFixed(2);
+        }
+        answered = true;
+        operators = [];
+        operands = [];
+        operands.push(result)
+        nextOperand = '';
     }
 });
-
