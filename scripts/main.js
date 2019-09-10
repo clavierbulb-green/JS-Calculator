@@ -141,8 +141,10 @@ function evaluateExpression() {
         answered = true;
         operators = [];
         operands = [];
-        operands.push(result)
-        nextOperand = '';
+        //operands.push(result)
+
+        //makes sure trailing 0s are added to nextOperand string
+        nextOperand = display.textContent;
     }
 }
 
@@ -170,7 +172,23 @@ document.addEventListener('keydown', e => {
     else if (e.key === 'Escape') {
         clearInfo();
     }
-    //TODO support backspace
+    else if (e.key === 'Backspace') {
+        if (display.textContent) {
+            display.textContent = display.textContent.slice(0, -1);
+
+            if (nextOperand) {
+                nextOperand = nextOperand.slice(0, -1);
+            }
+            else if (operators) {
+                operators.pop();
+                nextOperand = String(operands.pop());
+            }
+
+            if (answered) {
+                answered = false;
+            }
+        }
+    }
 })
 
 
