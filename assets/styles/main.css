@@ -15,20 +15,24 @@
 }
 
 .keypad__wrapper {
-    display: flex;
     flex: 6;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
 }
 
 .number__keys {
-    flex: 3;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
 .operator__keys {
-    flex: 1;
     display: grid;
     grid-template-columns: 1fr;
+}
+
+.sidebar {
+    display: grid;
+    grid-template-rows: 1fr 1fr 2fr;
 }
 
 button {

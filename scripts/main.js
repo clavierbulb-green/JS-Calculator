@@ -173,24 +173,28 @@ document.addEventListener('keydown', e => {
         clearInfo();
     }
     else if (e.key === 'Backspace') {
-        if (display.textContent) {
-            display.textContent = display.textContent.slice(0, -1);
-
-            if (nextOperand) {
-                nextOperand = nextOperand.slice(0, -1);
-            }
-            else if (operators) {
-                operators.pop();
-                nextOperand = String(operands.pop());
-            }
-
-            if (answered) {
-                answered = false;
-            }
-        }
+        backSpace();
     }
 })
 
+
+function backSpace() {
+    if (display.textContent) {
+        display.textContent = display.textContent.slice(0, -1);
+
+        if (nextOperand) {
+            nextOperand = nextOperand.slice(0, -1);
+        }
+        else if (operators) {
+            operators.pop();
+            nextOperand = String(operands.pop());
+        }
+
+        if (answered) {
+            answered = false;
+        }
+    }
+}
 
 /********** keypad(button) input **********/
 let numKeys = document.querySelectorAll('.number');
@@ -216,4 +220,9 @@ operatorKeys.forEach( listObj => {
 let equalsKey = document.querySelector('#equals');
 equalsKey.addEventListener('click', e => {
     evaluateExpression();
+});
+
+let backspaceKey = document.querySelector('#backspace');
+backspaceKey.addEventListener('click', e => {
+    backSpace();
 });

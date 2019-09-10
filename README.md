@@ -2,6 +2,7 @@ A browser implementation of a simple calculator.
 
 TODO:
 - [x] add support for keyboard input
+- [x] add Backspace keyboard input
 - [x] add Backspace button
 - [ ] add decimal input
 - [ ] add support for parentheses
