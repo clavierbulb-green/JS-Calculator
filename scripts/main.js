@@ -1,3 +1,15 @@
+/********** constants **********/
+const OPERATORS = ['+', '-', '*', '/']
+
+
+/********** variables **********/
+let display = document.querySelector('.display');
+let operators = [];
+let operands = [];
+let nextOperand = '';
+let answered = false;
+
+
 /* wrappers for fundamental mathematic operations */
 function add(x, y) {
     return x + y;
@@ -27,76 +39,59 @@ function operate(operator, x, y) {
         case "*":
             return multiply(x, y);
         case "/":
+            /*
             if (y === 0) {
-                return "ERROR: Divide by Zero";
+                clearInfo();
+                alert('Division by zero is undefined');
             }
             else {
                 return divide(x, y);
             }
+            */
+            return divide(x, y);
         default:
             return("ERROR: Invalid value for operator");
     }
 }
 
 
-let display = document.querySelector('.display');
-let operators = [];
-let operands = [];
-let nextOperand = '';
-let answered = false;
+/********** helper functions **********/
+function inputDigit(digitStr) {
+    if (answered) {
+        display.textContent = '';
+        operands = [];
+        nextOperand = '';
+        answered = false;
+    }
+    display.textContent += digitStr;
+    nextOperand += digitStr;
+}
 
 
-//add functionality to number keys
-let numKeys = document.querySelectorAll('.number');
-numKeys.forEach( listObj => {
-    listObj.addEventListener('click', e => {
-        if (answered) {
-            display.textContent = '';
-            operands = [];
-            nextOperand = '';
-            answered = false;
-        }
-        //clicking on a number key populates display with corresponding number
-        digitStr = listObj.textContent;
-        display.textContent += digitStr;
-        nextOperand += digitStr;
-    })
-});
-
-
-//add functionality to clear key
-let clearKey = document.querySelector('#clear');
-clearKey.addEventListener('click', e => {
+function clearInfo() {
     display.textContent = '';
     operators = [];
     operands = [];
     nextOperand = '';
-});
+}
 
 
-//add functionality to operator keys
-let operatorKeys = document.querySelectorAll('.operator');
-operatorKeys.forEach( listObj => {
-    listObj.addEventListener('click', e => {
-        if (display.textContent) {
-            if (nextOperand) {
-                operands.push(Number(nextOperand));
-                nextOperand = '';
-            }
-            operator = listObj.textContent;
-            operators.push(operator);
-            display.textContent += operator;
-            if (answered) {
-                answered = false;
-            }
+function inputOperator(operatorStr) {
+    if (display.textContent) {
+        if (nextOperand) {
+            operands.push(Number(nextOperand));
+            nextOperand = '';
         }
-    });
-});
+        operators.push(operatorStr);
+        display.textContent += operatorStr;
+        if (answered) {
+            answered = false;
+        }
+    }
+}
 
 
-//add functionality to equals key
-let equalsKey = document.querySelector('#equals');
-equalsKey.addEventListener('click', e => {
+function evaluateExpression() {
     result = -9999;
 
     if (nextOperand) {
@@ -130,6 +125,12 @@ equalsKey.addEventListener('click', e => {
             }
         }
 
+        // dividing by zero returns Infinity
+        if (!(Number.isFinite(result))) {
+            clearInfo();
+            alert('Division by Zero is undefined');
+            return;
+        }
 
         if (Number.isInteger(result)) {
             display.textContent = result;
@@ -143,4 +144,58 @@ equalsKey.addEventListener('click', e => {
         operands.push(result)
         nextOperand = '';
     }
+}
+
+
+/********** keyboard input **********/
+document.addEventListener('keydown', e => {
+    //console.log(e.key, typeof(e.key));
+
+    // digit input
+    if (Number.isInteger(Number(e.key))) {
+        inputDigit(e.key);
+    }
+    // operator input
+    else if (OPERATORS.includes(e.key)) {
+        // override browser keyboard-shortcut
+        if (e.key === '/') {
+            e.preventDefault();
+        }
+        inputOperator(e.key);
+    }
+    else if (e.key === '=' || e.key === 'Enter') {
+        e.preventDefault();
+        evaluateExpression();
+    }
+    else if (e.key === 'Escape') {
+        clearInfo();
+    }
+    //TODO support backspace
+})
+
+
+/********** keypad(button) input **********/
+let numKeys = document.querySelectorAll('.number');
+numKeys.forEach( listObj => {
+    listObj.addEventListener('click', e => {
+        inputDigit(listObj.textContent)
+    })
+});
+
+let clearKey = document.querySelector('#clear');
+clearKey.addEventListener('click', e => {
+    clearInfo();
+});
+
+let operatorKeys = document.querySelectorAll('.operator');
+operatorKeys.forEach( listObj => {
+    listObj.addEventListener('click', e => {
+        operator = listObj.textContent;
+        inputOperator(operator)
+    });
+});
+
+let equalsKey = document.querySelector('#equals');
+equalsKey.addEventListener('click', e => {
+    evaluateExpression();
 });
