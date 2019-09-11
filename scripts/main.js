@@ -82,8 +82,13 @@ function inputOperator(operatorStr) {
             operands.push(Number(nextOperand));
             nextOperand = '';
         }
-        operators.push(operatorStr);
         display.textContent += operatorStr;
+
+        if (operatorStr === '÷') {
+            operatorStr = '/';
+        }
+        operators.push(operatorStr);
+
         if (answered) {
             answered = false;
         }
@@ -162,8 +167,11 @@ document.addEventListener('keydown', e => {
         // override browser keyboard-shortcut
         if (e.key === '/') {
             e.preventDefault();
+            inputOperator('÷');
         }
-        inputOperator(e.key);
+        else {
+            inputOperator(e.key);
+        }
     }
     else if (e.key === '=' || e.key === 'Enter') {
         e.preventDefault();
@@ -212,8 +220,8 @@ clearKey.addEventListener('click', e => {
 let operatorKeys = document.querySelectorAll('.operator');
 operatorKeys.forEach( listObj => {
     listObj.addEventListener('click', e => {
-        operator = listObj.textContent;
-        inputOperator(operator)
+        opStr = listObj.textContent;
+        inputOperator(opStr)
     });
 });
 
