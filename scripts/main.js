@@ -63,6 +63,10 @@ function inputDigit(digitStr) {
         nextOperand = '';
         answered = false;
     }
+    /*
+    if (digitStr === '.' && separator) {
+    }*/
+
     display.textContent += digitStr;
     nextOperand += digitStr;
 }
@@ -157,9 +161,10 @@ function evaluateExpression() {
 /********** keyboard input **********/
 document.addEventListener('keydown', e => {
     //console.log(e.key, typeof(e.key));
+    //TODO compare to button text-content instead?
 
     // digit input
-    if (Number.isInteger(Number(e.key))) {
+    if (Number.isInteger(Number(e.key)) || e.key === '.') {
         inputDigit(e.key);
     }
     // operator input
