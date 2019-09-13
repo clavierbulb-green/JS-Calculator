@@ -151,7 +151,7 @@ function evaluateExpression() {
 
 /********** keyboard input **********/
 document.addEventListener('keydown', e => {
-    //console.log(e.key, typeof(e.key));
+    console.log(e.key, typeof(e.key));
 
     // digit input
     if (Number.isInteger(Number(e.key))) {
@@ -163,9 +163,14 @@ document.addEventListener('keydown', e => {
         if (e.key === '/') {
             e.preventDefault();
         }
+        // Ctrl- should only zoom-out as usual, not enter an operator
+        else if (e.key === '-' && e.ctrlKey) {
+            return;
+        }
         inputOperator(e.key);
     }
-    else if (e.key === '=' || e.key === 'Enter') {
+    // Ctrl+ should only zoom-in as usual, not enter an operator
+    else if ( (e.key === '=' && !e.ctrlKey) || e.key === 'Enter') {
         e.preventDefault();
         evaluateExpression();
     }
