@@ -63,8 +63,11 @@ function inputDigit(digitStr) {
         nextOperand = '';
         answered = false;
     }
+    
     /*
-    if (digitStr === '.' && separator) {
+    // only allow one '.' per operand
+    if (digitStr === '.' && nextOperand.includes('.')) {
+        return;
     }*/
 
     display.textContent += digitStr;
@@ -81,34 +84,52 @@ function clearInfo() {
 
 
 function inputOperator(operatorStr) {
-    if (display.textContent) {
-        if (nextOperand) {
-            operands.push(Number(nextOperand));
-            nextOperand = '';
-        }
-        display.textContent += operatorStr;
-
-        if (operatorStr === '÷') {
-            operatorStr = '/';
-        }
-        operators.push(operatorStr);
-
-        if (answered) {
-            answered = false;
-        }
+    if (nextOperand) {
+        operands.push(Number(nextOperand));
+        nextOperand = '';
     }
+    display.textContent += operatorStr;
+
+    if (operatorStr === '÷') {
+        operatorStr = '/';
+    }
+    operators.push(operatorStr);
+
+    if (answered) {
+        answered = false;
+        }
 }
 
 
 function evaluateExpression() {
     result = -9999;
 
+    if (display.textContent === '') {
+        return;
+    }
+    // an operand by itself is equal to itself
+    else if (operators.length === 0 && nextOperand) {
+        if (!Number.isNaN(Number(nextOperand))) {
+            result = nextOperand;
+            answered = true;
+        }
+        else {
+            alert('Malformed Expression!');
+        }
+        return;
+    }
+
+    if (operands.includes(NaN) || nextOperand === '.') {
+        alert('Malformed Expression!');
+        return;
+    }
+
     if (nextOperand) {
         operands.push(Number(nextOperand));
         nextOperand = ''
     }
 
-    if (operators.length && operands.length > 1) {
+    if (operators.length < operands.length) {
 
         //multiplication and division first
         for (let i = 0; i < operators.length; i++) {
@@ -155,6 +176,10 @@ function evaluateExpression() {
         //makes sure trailing 0s are added to nextOperand string
         nextOperand = display.textContent;
     }
+    else {
+        alert('Malformed Expression!');
+        return;
+    }
 }
 
 
@@ -193,10 +218,15 @@ document.addEventListener('keydown', e => {
 
 function backSpace() {
     if (display.textContent) {
+        // TODO test last character in display?
+        //removeChar = display.textContent.slice(-1);
         display.textContent = display.textContent.slice(0, -1);
 
         if (nextOperand) {
             nextOperand = nextOperand.slice(0, -1);
+        }
+        else if (operators.length >= operands.length) {
+            operators.pop();
         }
         else if (operators) {
             operators.pop();
