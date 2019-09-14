@@ -1,5 +1,5 @@
 /********** constants **********/
-const OPERATORS = ['+', '-', '*', '/']
+const OPERATORS = ['+', '-', '*', '/', '%']
 
 
 /********** variables **********/
@@ -10,7 +10,7 @@ let nextOperand = '';
 let answered = false;
 
 
-/* wrappers for fundamental mathematic operations */
+/* wrappers for fundamental mathematic operations */ 
 function add(x, y) {
     return x + y;
 }
@@ -27,6 +27,10 @@ function divide(x, y) {
     return x / y;
 }
 
+function modulo(x, y) {
+    return x % y;
+}
+
 
 // returns the result of an operation defined by operator on numbers x and y
 function operate(operator, x, y) {
@@ -39,16 +43,9 @@ function operate(operator, x, y) {
         case "*":
             return multiply(x, y);
         case "/":
-            /*
-            if (y === 0) {
-                clearInfo();
-                alert('Division by zero is undefined');
-            }
-            else {
-                return divide(x, y);
-            }
-            */
             return divide(x, y);
+        case "%":
+            return modulo(x, y);
         default:
             return("ERROR: Invalid value for operator");
     }

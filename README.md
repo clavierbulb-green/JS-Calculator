@@ -8,7 +8,7 @@ TODO:
 - [x] add support for order of operations
 - [x] fix zoom
 - [x] add tooltips to buttons that explain their respective keyboard shortcuts
-- [ ] add functionality to modulo operator
+- [x] add functionality to modulo operator
 - [ ] add support for parentheses
 - [ ] add support for leading '+'/'-' as signs
 - [ ] clean/refactor code (i.e. review class/id names, etc.)
