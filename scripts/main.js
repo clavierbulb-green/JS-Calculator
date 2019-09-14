@@ -198,6 +198,7 @@ document.addEventListener('keydown', e => {
         if (e.key === '/') {
             e.preventDefault();
             inputOperator('÷');
+            return;
         }
         // Ctrl- should only zoom-out as usual, not enter an operator
         else if (e.key === '-' && e.ctrlKey) {
@@ -258,7 +259,9 @@ clearKey.addEventListener('click', e => {
 let operatorKeys = document.querySelectorAll('.operator');
 operatorKeys.forEach( listObj => {
     listObj.addEventListener('click', e => {
-        opStr = listObj.textContent;
+        // textContent gets the text of all child elements (i.e. the text of
+        // the tooltip) whereas we only want the text shown on the button
+        opStr = listObj.textContent[0];
         inputOperator(opStr)
     });
 });
