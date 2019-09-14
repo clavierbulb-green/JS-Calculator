@@ -63,6 +63,13 @@ function inputDigit(digitStr) {
         nextOperand = '';
         answered = false;
     }
+    
+    /*
+    // only allow one '.' per operand
+    if (digitStr === '.' && nextOperand.includes('.')) {
+        return;
+    }*/
+
     display.textContent += digitStr;
     nextOperand += digitStr;
 }
@@ -77,29 +84,52 @@ function clearInfo() {
 
 
 function inputOperator(operatorStr) {
-    if (display.textContent) {
-        if (nextOperand) {
-            operands.push(Number(nextOperand));
-            nextOperand = '';
-        }
-        operators.push(operatorStr);
-        display.textContent += operatorStr;
-        if (answered) {
-            answered = false;
-        }
+    if (nextOperand) {
+        operands.push(Number(nextOperand));
+        nextOperand = '';
     }
+    display.textContent += operatorStr;
+
+    if (operatorStr === '÷') {
+        operatorStr = '/';
+    }
+    operators.push(operatorStr);
+
+    if (answered) {
+        answered = false;
+        }
 }
 
 
 function evaluateExpression() {
     result = -9999;
 
+    if (display.textContent === '') {
+        return;
+    }
+    // an operand by itself is equal to itself
+    else if (operators.length === 0 && nextOperand) {
+        if (!Number.isNaN(Number(nextOperand))) {
+            result = nextOperand;
+            answered = true;
+        }
+        else {
+            alert('Malformed Expression!');
+        }
+        return;
+    }
+
+    if (operands.includes(NaN) || nextOperand === '.') {
+        alert('Malformed Expression!');
+        return;
+    }
+
     if (nextOperand) {
         operands.push(Number(nextOperand));
         nextOperand = ''
     }
 
-    if (operators.length && operands.length > 1) {
+    if (operators.length < operands.length) {
 
         //multiplication and division first
         for (let i = 0; i < operators.length; i++) {
@@ -146,15 +176,20 @@ function evaluateExpression() {
         //makes sure trailing 0s are added to nextOperand string
         nextOperand = display.textContent;
     }
+    else {
+        alert('Malformed Expression!');
+        return;
+    }
 }
 
 
 /********** keyboard input **********/
 document.addEventListener('keydown', e => {
-    console.log(e.key, typeof(e.key));
+    //console.log(e.key, typeof(e.key));
+    //TODO compare to button text-content instead?
 
     // digit input
-    if (Number.isInteger(Number(e.key))) {
+    if (Number.isInteger(Number(e.key)) || e.key === '.') {
         inputDigit(e.key);
     }
     // operator input
@@ -162,6 +197,10 @@ document.addEventListener('keydown', e => {
         // override browser keyboard-shortcut
         if (e.key === '/') {
             e.preventDefault();
+            inputOperator('÷');
+        }
+        else {
+            inputOperator(e.key);
         }
         // Ctrl- should only zoom-out as usual, not enter an operator
         else if (e.key === '-' && e.ctrlKey) {
@@ -178,24 +217,33 @@ document.addEventListener('keydown', e => {
         clearInfo();
     }
     else if (e.key === 'Backspace') {
-        if (display.textContent) {
-            display.textContent = display.textContent.slice(0, -1);
-
-            if (nextOperand) {
-                nextOperand = nextOperand.slice(0, -1);
-            }
-            else if (operators) {
-                operators.pop();
-                nextOperand = String(operands.pop());
-            }
-
-            if (answered) {
-                answered = false;
-            }
-        }
+        backSpace();
     }
 })
 
+
+function backSpace() {
+    if (display.textContent) {
+        // TODO test last character in display?
+        //removeChar = display.textContent.slice(-1);
+        display.textContent = display.textContent.slice(0, -1);
+
+        if (nextOperand) {
+            nextOperand = nextOperand.slice(0, -1);
+        }
+        else if (operators.length >= operands.length) {
+            operators.pop();
+        }
+        else if (operators) {
+            operators.pop();
+            nextOperand = String(operands.pop());
+        }
+
+        if (answered) {
+            answered = false;
+        }
+    }
+}
 
 /********** keypad(button) input **********/
 let numKeys = document.querySelectorAll('.number');
@@ -213,12 +261,17 @@ clearKey.addEventListener('click', e => {
 let operatorKeys = document.querySelectorAll('.operator');
 operatorKeys.forEach( listObj => {
     listObj.addEventListener('click', e => {
-        operator = listObj.textContent;
-        inputOperator(operator)
+        opStr = listObj.textContent;
+        inputOperator(opStr)
     });
 });
 
 let equalsKey = document.querySelector('#equals');
 equalsKey.addEventListener('click', e => {
     evaluateExpression();
+});
+
+let backspaceKey = document.querySelector('#backspace');
+backspaceKey.addEventListener('click', e => {
+    backSpace();
 });
