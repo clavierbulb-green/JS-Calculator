@@ -13,8 +13,8 @@
 <body>
     <div class="calculator">
         <div class="display"></div>
-        <div class="keypad__wrapper">
-            <div class="number__keys">
+        <div class="keypad">
+            <div class="number-keys">
                 <button class="number" id="button__7">7</button>
                 <button class="number" id="button__8">8</button>
                 <button class="number" id="button__9">9</button>
@@ -26,18 +26,34 @@
                 <button class="number" id="button__3">3</button>
                 <button class="number" id="button__0">0</button>
                 <button class="number" id="point">.</button>
-                <button class="operator" id="modulus">%</button>
+                <button class="operator" id="modulus">%
+                    <span class="tooltiptext">Modulo[%]</span>
+                </button>
             </div>
-            <div class="operator__keys">
-                <button class="operator" id="divide">&divide</button>
-                <button class="operator" id="multiply">*</button>
-                <button class="operator" id="subtract">-</button>
-                <button class="operator" id="add">+</button>
+            <div class="operator-keys">
+                <button class="operator" id="divide">&divide
+                    <span class="tooltiptext">Divide[/]</span>
+                </button>
+                <button class="operator" id="multiply">*
+                    <span class="tooltiptext">Multiply[*]</span>
+                </button>
+                <button class="operator" id="subtract">-
+                    <span class="tooltiptext">Subtract[-]</span>
+                </button>
+                <button class="operator" id="add">+
+                    <span class="tooltiptext">Add[+]</span>
+                </button>
             </div>
             <div class="sidebar">
-                <button id="backspace">&#8617</button>
-                <button id="clear">C</button>
-                <button id="equals">=</button>
+                <button id="backspace">&#8617
+                    <span class="tooltiptext">Undo[BackSpace]</span>
+                </button>
+                <button id="clear">C
+                    <span class="tooltiptext">Clear Display[Esc]</span>
+                </button>
+                <button id="equals">=
+                    <span class="tooltiptext">Calculate Result[Enter/=]</span>
+                </button>
             </div>
         </div> <!--end .keypad__wrapper-->
     </div> <!--end .calculator-->

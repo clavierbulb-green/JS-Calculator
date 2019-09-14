@@ -15,18 +15,20 @@
     flex: 1;
 }
 
-.keypad__wrapper {
+/* KEYPAD */
+
+.keypad {
     flex: 6;
     display: grid;
     grid-template-columns: 3fr 1fr 1fr;
 }
 
-.number__keys {
+.number-keys {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-.operator__keys {
+.operator-keys {
     display: grid;
     grid-template-columns: 1fr;
 }
@@ -58,4 +60,24 @@ button {
     color: #FFFFFF;
     font-weight: bold;
     background-color: #32A84C ;
+}
+
+
+/* TOOLTIPS */
+
+.tooltiptext {
+  visibility: hidden;
+  color: #000;
+  background-color: #ffd;
+  text-align: center;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 0.4em;
+  position: absolute;
+  box-shadow: 0px 1px 1px 0px #333;
+
+}
+
+button:hover .tooltiptext {
+  visibility: visible;
 }

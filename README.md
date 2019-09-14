@@ -5,11 +5,12 @@ TODO:
 - [x] add Backspace keyboard input
 - [x] add Backspace button
 - [x] add decimal input
-- [ ] add support for parentheses
 - [x] add support for order of operations
-- [ ] add to buttons popups that explain their respective keyboard shortcuts
-- [ ] add support for leading '+'/'-' as signs
 - [x] fix zoom
+- [x] add tooltips to buttons that explain their respective keyboard shortcuts
+- [ ] add functionality to modulo operator
+- [ ] add support for parentheses
+- [ ] add support for leading '+'/'-' as signs
 - [ ] clean/refactor code (i.e. review class/id names, etc.)
 
 Inspired by and written as a solution to the practice project

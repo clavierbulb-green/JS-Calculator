@@ -199,9 +199,6 @@ document.addEventListener('keydown', e => {
             e.preventDefault();
             inputOperator('÷');
         }
-        else {
-            inputOperator(e.key);
-        }
         // Ctrl- should only zoom-out as usual, not enter an operator
         else if (e.key === '-' && e.ctrlKey) {
             return;
