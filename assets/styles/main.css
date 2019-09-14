@@ -8,31 +8,37 @@
 }
 
 .display {
-    font-size: 1.5em;
+    font-size: 2.0em;
+    font-family: 'Source Code Pro', monospace;
     border: 2px solid black;
     border-radius: 0.3em;
     flex: 1;
 }
 
 .keypad__wrapper {
-    display: flex;
     flex: 6;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
 }
 
 .number__keys {
-    flex: 3;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
 .operator__keys {
-    flex: 1;
     display: grid;
     grid-template-columns: 1fr;
 }
 
+.sidebar {
+    display: grid;
+    grid-template-rows: 1fr 1fr 2fr;
+}
+
 button {
-    font-size: 1.5em;
+    font-size: 2.0em;
+    font-family: 'Source Code Pro', monospace;
     background-color: #F5F7F9;
 }
 
