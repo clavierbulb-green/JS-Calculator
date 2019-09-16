@@ -10,42 +10,20 @@ let nextOperand = '';
 let answered = false;
 
 
-/* wrappers for fundamental mathematic operations */ 
-function add(x, y) {
-    return x + y;
-}
-
-function subtract(x, y) {
-    return x - y;
-}
-
-function multiply(x, y) {
-    return x * y;
-}
-
-function divide(x, y) {
-    return x / y;
-}
-
-function modulo(x, y) {
-    return x % y;
-}
-
-
 // returns the result of an operation defined by operator on numbers x and y
 function operate(operator, x, y) {
     //TODO throw errors in error cases?
     switch (operator) {
         case "+":
-            return add(x, y);
+            return x + y;
         case "-":
-            return subtract(x, y);
+            return x - y;
         case "*":
-            return multiply(x, y);
+            return x * y;
         case "/":
-            return divide(x, y);
+            return x / y;
         case "%":
-            return modulo(x, y);
+            return x % y;
         default:
             return("ERROR: Invalid value for operator");
     }
@@ -61,12 +39,6 @@ function inputDigit(digitStr) {
         answered = false;
     }
     
-    /*
-    // only allow one '.' per operand
-    if (digitStr === '.' && nextOperand.includes('.')) {
-        return;
-    }*/
-
     display.textContent += digitStr;
     nextOperand += digitStr;
 }
@@ -256,8 +228,6 @@ clearKey.addEventListener('click', e => {
 let operatorKeys = document.querySelectorAll('.operator');
 operatorKeys.forEach( listObj => {
     listObj.addEventListener('click', e => {
-        // textContent gets the text of all child elements (i.e. the text of
-        // the tooltip) whereas we only want the text shown on the button
         opStr = listObj.textContent[0];
         inputOperator(opStr)
     });
