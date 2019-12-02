@@ -1,17 +1,13 @@
-A browser implementation of a simple calculator.
+# [JS-Calculator](https://clavierbulb-green.github.io/JS-Calculator/)
+---
 
-TODO:
-- [x] add support for keyboard input
-- [x] add Backspace keyboard input
-- [x] add Backspace button
-- [x] add decimal input
-- [x] add support for order of operations
-- [x] fix zoom
-- [x] add tooltips to buttons that explain their respective keyboard shortcuts
-- [x] add functionality to modulo operator
-- [ ] add support for parentheses
-- [ ] add support for leading '+'/'-' as signs
-- [ ] clean/refactor code (i.e. review class/id names, etc.)
+A browser implementation of a simple calculator.
 
 Inspired by and written as a solution to the practice project
 [Calculator](https://www.theodinproject.com/courses/web-development-101/lessons/calculator) by the Odin Project.
+
+## TODO:
+- [ ] improve mobile page
+- [ ] add support for parentheses
+- [ ] add support for leading '+'/'-' as signs
+- [ ] clean/refactor code (i.e. review class/id names, etc.)
