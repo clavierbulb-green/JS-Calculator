@@ -1,4 +1,5 @@
 # [JS-Calculator](https://clavierbulb-green.github.io/JS-Calculator/)
+
 ![screenshot of calculator app](assets/images/preview/screenshot.png)
 
 ---
