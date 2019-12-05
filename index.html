@@ -5,10 +5,10 @@
     <title>Calculator</title>
     <link rel="stylesheet" href="assets/styles/reset.css">
     <link rel="stylesheet" href="assets/styles/main.css">
-    <link rel="stylesheet" href=
-    "https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap">
+    <link rel="stylesheet" 
+          href=
+          "https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap">
     
-    <script src="scripts/main.js" async></script>
 </head>
 <body>
     <div class="calculator">
@@ -26,28 +26,22 @@
                 <button class="number" id="button__3">3</button>
                 <button class="number" id="button__0">0</button>
                 <button class="number" id="point">.</button>
-                <button class="operator tooltip" id="modulo" data-tooltip="Modulo[%]">%
-                </button>
+                <button class="operator" id="modulo">%</button>
             </div>
             <div class="operator-keys">
-                <button class="operator tooltip" id="divide" data-tooltip="Divide[/]">&divide
-                </button>
-                <button class="operator tooltip" id="multiply" data-tooltip="Multiply[*]">*
-                </button>
-                <button class="operator tooltip" id="subtract" data-tooltip="Subtract[-]">-
-                </button>
-                <button class="operator tooltip" id="add" data-tooltip="Add[+]">+
-                </button>
+                <button class="operator" id="divide">&divide</button>
+                <button class="operator" id="multiply">*</button>
+                <button class="operator" id="subtract">-</button>
+                <button class="operator" id="add">+</button>
             </div>
             <div class="sidebar">
-                <button id="backspace" class="tooltip" data-tooltip="Undo[Backspace]">&#8617
-                </button>
-                <button id="clear" class="tooltip" data-tooltip="Clear Display[Esc]">C
-                </button>
-                <button id="equals" class="tooltip" data-tooltip="Calculate Result[Enter/=]">=
-                </button>
+                <button id="backspace">&#8617</button>
+                <button id="clear">C</button>
+                <button id="equals">=</button>
             </div>
         </div> <!--end .keypad__wrapper-->
     </div> <!--end .calculator-->
+
+    <script src="scripts/main.js"></script>
 </body>
 </html>

@@ -10,9 +10,9 @@ let nextOperand = '';
 let answered = false;
 
 
-// returns the result of an operation defined by operator on numbers x and y
 function operate(operator, x, y) {
-    //TODO throw errors in error cases?
+    /* Return the result of applying operator on the operands x and y*/
+
     switch (operator) {
         case "+":
             return x + y;
@@ -25,7 +25,7 @@ function operate(operator, x, y) {
         case "%":
             return x % y;
         default:
-            return("ERROR: Invalid value for operator");
+            return NaN;
     }
 }
 
@@ -154,9 +154,6 @@ function evaluateExpression() {
 
 /********** keyboard input **********/
 document.addEventListener('keydown', e => {
-    //console.log(e.key, typeof(e.key));
-    //TODO compare to button text-content instead?
-
     // digit input
     if (Number.isInteger(Number(e.key)) || e.key === '.') {
         inputDigit(e.key);
@@ -191,8 +188,6 @@ document.addEventListener('keydown', e => {
 
 function backSpace() {
     if (display.textContent) {
-        // TODO test last character in display?
-        //removeChar = display.textContent.slice(-1);
         display.textContent = display.textContent.slice(0, -1);
 
         if (nextOperand) {
@@ -212,33 +207,35 @@ function backSpace() {
     }
 }
 
-/********** keypad(button) input **********/
-let numKeys = document.querySelectorAll('.number');
-numKeys.forEach( listObj => {
-    listObj.addEventListener('click', e => {
-        inputDigit(listObj.textContent)
-    })
-});
+/********** keypad buttons **********/
+const numKeys = document.getElementsByClassName('number');
+for (let i = 0; i < numKeys.length; i++) {
+    let numKey = numKeys[i];
+    numKey.addEventListener('click', e => {
+        inputDigit(numKey.textContent)
+    });
+};
 
-let clearKey = document.querySelector('#clear');
-clearKey.addEventListener('click', e => {
-    clearInfo();
-});
-
-let operatorKeys = document.querySelectorAll('.operator');
-operatorKeys.forEach( listObj => {
-    listObj.addEventListener('click', e => {
-        opStr = listObj.textContent[0];
+const operatorKeys = document.getElementsByClassName('operator');
+for (let i = 0; i < operatorKeys.length; i++) {
+    let operatorKey = operatorKeys[i];
+    operatorKey.addEventListener('click', e => {
+        opStr = operatorKey.textContent[0];
         inputOperator(opStr)
     });
-});
+};
 
-let equalsKey = document.querySelector('#equals');
+const equalsKey = document.getElementById('equals');
 equalsKey.addEventListener('click', e => {
     evaluateExpression();
 });
 
-let backspaceKey = document.querySelector('#backspace');
+const backspaceKey = document.getElementById('backspace');
 backspaceKey.addEventListener('click', e => {
     backSpace();
+});
+
+const clearKey = document.getElementById('clear');
+clearKey.addEventListener('click', e => {
+    clearInfo();
 });
