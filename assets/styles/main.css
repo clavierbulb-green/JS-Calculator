@@ -1,27 +1,5 @@
-@media (orientation: portrait) {
-    :root {
-        --calculator_side_length: 86vw;
-    }
-    .display {
-        font-size: 10vw;
-        padding-left: 5vw;
-    }
-    button {
-        font-size: 10vw;
-    }
-}
-
-@media (orientation: landscape) {
-    :root {
-        --calculator_side_length: 86vh;
-    }
-    .display {
-        font-size: 10vh;
-        padding-left: 5vh;
-    }
-    button {
-        font-size: 10vh;
-    }
+:root {
+    --calculator_side_length: 92vmin;
 }
 
 .calculator {
@@ -42,6 +20,23 @@
     flex: 1;
     border: 1px solid white;
     box-sizing: border-box;
+    font-size: 10vmin;
+    padding-left: 5vmin;
+}
+
+.display::after {
+    content: "|";
+    color: #263238;
+    animation: 1.1s infinite linear alternate cursorblink;
+}
+
+@keyframes cursorblink {
+    from {
+        opacity: 0.6;
+    }
+    to {
+        opacity: 0;
+    }
 }
 
 /* KEYPAD */
@@ -73,9 +68,11 @@ button {
     background-color: #ECEFF1;
     border: 2px solid white;
     text-align: center;
+    font-size: 10vmin;
+    transition: filter 0.4s ease-out;
 }
 
-button:hover {
+button:hover, button:active {
     filter: contrast(120%);
 }
 
@@ -95,4 +92,11 @@ button:hover {
     color: white;
     font-weight: bold;
     background-color: #37474F;
+}
+
+/* media queries */
+@media (orientation: portrait) {
+}
+
+@media (orientation: landscape) {
 }

@@ -13,3 +13,4 @@ Inspired by and written as a solution to the practice project
 
 - [ ] Add support for parentheses
 - [ ] Allow for leading sign operators
+- [ ] Prettify alert messages
