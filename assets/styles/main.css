@@ -1,4 +1,9 @@
 /* RESET */
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
 html {
   box-sizing: border-box;
 }
@@ -9,98 +14,103 @@ html {
   box-sizing: inherit;
 }
 
+/******************************/
 
 :root {
-    --calculator_side_length: 92vmin;
+  --calculator_side_length: 92vmin;
 }
 
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
 .calculator {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    margin-top: calc(50vh - var(--calculator_side_length) / 2);
-    width: var(--calculator_side_length);
-    height: var(--calculator_side_length);
+  display: flex;
+  flex-direction: column;
+  width: var(--calculator_side_length);
+  height: var(--calculator_side_length);
 }
 
 .display {
-    font-family: 'Source Code Pro', monospace;
-    background-color: rgba(236, 239, 241, 0.3);
-    color: #233;
-    letter-spacing: 0.25rem;
-    flex: 1;
-    border: 1px solid white;
-    font-size: 10vmin;
-    padding-left: 5vmin;
+  font-family: 'Source Code Pro', monospace;
+  background-color: rgba(236, 239, 241, 0.3);
+  color: #233;
+  letter-spacing: 0.25rem;
+  flex: 1;
+  border: 1px solid white;
+  font-size: 10vmin;
+  padding-left: 5vmin;
 }
 
 /* || blinking cursor */
 .display::after {
-    content: "|";
-    color: #233;
-    animation: 0.8s infinite ease-in  alternate cursorblink;
+  content: "|";
+  color: #233;
+  animation: 0.7s infinite ease-in-out  alternate cursorblink;
 }
 
 @keyframes cursorblink {
-    from {
-        opacity: 0.6;
-    }
-    to {
-        opacity: 0;
-    }
+  from {
+      opacity: 0.6;
+  }
+  to {
+      opacity: 0;
+  }
 }
 
 /* || keypad */
 .keypad {
-    flex: 6;
-    display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
+  flex: 6;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
 }
 
 .number-keys {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .operator-keys {
-    display: grid;
-    grid-template-columns: 1fr;
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .sidebar {
-    display: grid;
-    grid-template-rows: 1fr 1fr 2fr;
+  display: grid;
+  grid-template-rows: 1fr 1fr 2fr;
 }
 
 button {
-    font-family: 'Source Code Pro', monospace;
-    background-color: #ECEFF1;
-    border: 2px solid white;
-    text-align: center;
-    font-size: 10vmin;
-    transition: filter 0.4s ease-out;
+  font-family: 'Source Code Pro', monospace;
+  background-color: #ECEFF1;
+  border: 2px solid white;
+  text-align: center;
+  font-size: 10vmin;
+  transition: filter 0.4s ease-out;
 }
 
 button:hover,
 button:active {
-    filter: contrast(120%);
+  filter: contrast(120%);
 }
 
 .number {
-    color: #263238;
+  color: #263238;
 }
 
 .operator {
-    color: #536DFE;
+  color: #536DFE;
 }
 
 #clear {
-    color: #DD2C00;
+  color: #DD2C00;
 }
 
 #equals {
-    color: white;
-    font-weight: bold;
-    background-color: #37474F;
+  color: white;
+  font-weight: bold;
+  background-color: #37474F;
 }
